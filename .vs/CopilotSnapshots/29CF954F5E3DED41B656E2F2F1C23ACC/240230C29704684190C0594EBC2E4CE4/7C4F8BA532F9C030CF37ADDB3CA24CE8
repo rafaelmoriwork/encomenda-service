@@ -1,0 +1,21 @@
+﻿using GestaoEncomendas.Data.Contexts;
+using GestaoEncomendas.Entities;
+
+namespace GestaoEncomendas.Data.Repositories
+{
+    public class DocumentoRepository
+    {
+        private readonly EncomendasDbContext _encomendasDbContext;
+
+        public DocumentoRepository(EncomendasDbContext encomendasDbContext)
+        {
+            this._encomendasDbContext = encomendasDbContext;
+        }
+
+        public Documento? FindByNumero(string numero)
+        {
+            return this._encomendasDbContext.Documentos.SingleOrDefault(documento => documento.Numero == numero);
+        }
+
+    }
+}
