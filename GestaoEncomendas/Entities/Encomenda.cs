@@ -12,7 +12,7 @@
         public Guid EnderecoEntregaId { get; set; }
         public Endereco EnderecoEntrega { get; set; } = null!;
         public string? Descricao { get; set; }
-        public DateTime Inclusao { get; set; } = DateTime.UtcNow;
+        public DateTime DataInclusao { get; set; } = DateTime.UtcNow;
         public ICollection<Volume> Volumes { get; set; } = new List<Volume>();
     }
 }

@@ -1,0 +1,23 @@
+# .NET - arquivos gerados pela compilacao e publicacao
+**/bin/
+**/obj/
+**/publish/
+**/artifacts/
+**/TestResults/
+
+# Visual Studio e arquivos de usuario locais
+.vs/
+*.user
+**/*.csproj.user
+*.suo
+*.rsuser
+*.sln.docstates
+
+# Perfis de publicacao locais
+**/Properties/PublishProfiles/*.pubxml
+**/Properties/PublishProfiles/*.pubxml.user
+
+# Logs e arquivos temporarios do sistema
+*.log
+Thumbs.db
+.DS_Store

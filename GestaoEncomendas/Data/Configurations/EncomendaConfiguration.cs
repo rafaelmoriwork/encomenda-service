@@ -28,8 +28,8 @@ namespace GestaoEncomendas.Data.Configurations
                 .HasColumnName("descricao")
                 .HasMaxLength(200);
 
-            builder.Property(e => e.Inclusao)
-                .HasColumnName("inclusao")
+            builder.Property(e => e.DataInclusao)
+                .HasColumnName("data_inclusao")
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 

@@ -7,4 +7,5 @@ builder.ApplyConfigurationsBeforeBuild();
 var app = builder.Build();
 
 app.ApplyConfigurationsAfterBuild();
+
 app.Run();

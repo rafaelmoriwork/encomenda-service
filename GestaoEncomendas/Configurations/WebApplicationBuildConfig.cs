@@ -72,9 +72,12 @@ namespace GestaoEncomendas.Configurations
                 method.Invoke(null, new object[] { app });
             }
 
+
             app.UseExceptionHandler();
             app.UseAuthorization();
-            app.MapControllers();
+
+            var basePath = app.Configuration["Api:BasePath"];
+            app.MapGroup(basePath).MapControllers();
 
             return app;
         }
