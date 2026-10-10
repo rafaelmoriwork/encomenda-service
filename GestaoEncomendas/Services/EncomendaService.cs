@@ -2,6 +2,7 @@
 using GestaoEncomendas.Data.Repositories;
 using GestaoEncomendas.Dtos.Requests;
 using GestaoEncomendas.Entities;
+using GestaoEncomendas.Exceptions;
 
 namespace GestaoEncomendas.Services
 {
@@ -25,19 +26,19 @@ namespace GestaoEncomendas.Services
             Cidade cidade = this._cidadeRepository.FindByCodigoIbge(encomendaRequestDto.EnderecoEntrega.CodigoIbgeCidade);
             if (cidade == null)
             {
-                throw new ArgumentException("Cidade não encontrada");
+                throw new EntityNotFoundException("Cidade não encontrada");
             }
 
             Documento documentoRemetente = this._documentoRepository.FindByNumero(encomendaRequestDto.DocRemetente);
             if (documentoRemetente == null)
             {
-                throw new ArgumentException("Documento do remetente não encontrado");
+                throw new EntityNotFoundException("Documento do remetente não encontrado");
             }
 
             Documento documentoDestinatario = this._documentoRepository.FindByNumero(encomendaRequestDto.DocDestinatario);
             if (documentoDestinatario == null)
             {
-                throw new ArgumentException("Documento do destinatário não encontrado");
+                throw new EntityNotFoundException("Documento do destinatário não encontrado");
             }
 
             Encomenda encomenda = this._mapper.Map<Encomenda>(encomendaRequestDto);

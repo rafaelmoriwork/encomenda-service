@@ -1,4 +1,5 @@
 ﻿using GestaoEncomendas.Dtos.Requests;
+using GestaoEncomendas.Exceptions;
 using GestaoEncomendas.Services;
 using GestaoEncomendas.Validators.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace GestaoEncomendas.Controllers
 
             if (!resultado.IsValid)
             {
-                return BadRequest(resultado.Errors);
+                throw new ValidatorDtoRequestException(resultado.Errors);
             }
 
             _encomendaService.RegistrarEncomenda(encomendaRequestDto);

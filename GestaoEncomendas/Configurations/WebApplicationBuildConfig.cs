@@ -11,6 +11,9 @@ namespace GestaoEncomendas.Configurations
         // Aplicar todas as configurações antes de construir o WebApplication
         public static WebApplicationBuilder ApplyConfigurationsBeforeBuild(this WebApplicationBuilder builder)
         {
+
+            builder.Services.AddControllers();
+
             // Registrar todas as classes que implementam a interface IBeforeBuildContainerRegisterConfig no namespace GestaoEncomendas.Configurations.BeforeBuildConfigs
             const string beforeBuildConfigNamespace = "GestaoEncomendas.Configurations.BeforeBuildConfigs";
             var interfaceType = typeof(IBeforeBuildContainerRegisterConfig);
@@ -37,7 +40,7 @@ namespace GestaoEncomendas.Configurations
 
             // Demais configurações
             EncomendasDbContext.ContainerRegister(builder);
-            builder.Services.AddControllers();
+            
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();
 

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Dtos\Internals\" />
-    <Folder Include="Dtos\Responses\" />
     <Folder Include="Helpers\" />
     <Folder Include="Mappers\Requests\" />
     <Folder Include="Mappers\Responses\" />
