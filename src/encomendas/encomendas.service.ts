@@ -1,4 +1,4 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnprocessableEntityException } from '@nestjs/common';
 import EncomendaRequestDto from './dto/request/encomenda-request.dto.js';
 import { Repository } from 'typeorm';
 import { Documento } from '../pessoas/entities/documento.entity.js';
@@ -80,17 +80,17 @@ export default class EncomendasService {
 
     const remetenteDocumento = await this.documentoRepository.findOneBy({ numero: encomendaRequestDto.docRemetente });
     if (!remetenteDocumento) {
-      throw new UnprocessableEntityException(`Documento do remetente não encontrado: ${encomendaRequestDto.docRemetente}`);
+      throw new BadRequestException(`Documento do remetente não encontrado: ${encomendaRequestDto.docRemetente}`);
     }
 
     const destinatarioDocumento = await this.documentoRepository.findOneBy({ numero: encomendaRequestDto.docDestinatario });
     if (!destinatarioDocumento) {
-      throw new UnprocessableEntityException(`Documento do destinatário não encontrado: ${encomendaRequestDto.docDestinatario}`);
+      throw new BadRequestException(`Documento do destinatário não encontrado: ${encomendaRequestDto.docDestinatario}`);
     }
 
     const cidade = await this.cidadeRepository.findOneBy({ codigoIbge: encomendaRequestDto.enderecoEntrega.codigoIbgeCidade });
     if (!cidade) {
-      throw new UnprocessableEntityException(`Cidade não encontrada: ${encomendaRequestDto.enderecoEntrega.codigoIbgeCidade}`);
+      throw new BadRequestException(`Cidade não encontrada: ${encomendaRequestDto.enderecoEntrega.codigoIbgeCidade}`);
     }
 
     const [remetente, destinatario] = await Promise.all([
