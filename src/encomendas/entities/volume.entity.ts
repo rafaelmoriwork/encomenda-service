@@ -13,7 +13,6 @@ export class Volume {
   @JoinColumn({ name: 'encomenda_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_volume_encomenda_encomenda_id' })
   public encomenda!: Promise<Relation<Encomenda>>;
 
-  // O driver mysql2 costuma devolver valores DECIMAL como string para preservar precisão.
   @Column({ type: 'decimal', precision: 10, scale: 3 })
   public comprimento!: number;
 
@@ -25,4 +24,8 @@ export class Volume {
 
   @Column({ name: 'peso_bruto', type: 'decimal', precision: 10, scale: 3 })
   public pesoBruto!: number;
+
+  @Column({ type: 'varchar', length: 200 })
+  public descricao!: string;
+
 }

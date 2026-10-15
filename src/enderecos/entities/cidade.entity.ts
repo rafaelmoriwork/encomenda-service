@@ -1,7 +1,6 @@
 import { Column, Entity, Generated, Index, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 import type { Relation } from 'typeorm';
 import { Estado } from '../../enderecos/entities/estado.entity.js';
-import { Endereco } from '../../enderecos/entities/endereco.entity.js';
 
 @Entity({ name: 'cidade' })
 @Index('IX_cidade_codigo_ibge', ['codigoIbge'], { unique: true })
@@ -21,6 +20,4 @@ export class Cidade {
   @JoinColumn({ name: 'estado_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_cidade_estado_estado_id' })
   public estado!: Promise<Relation<Estado>>;
 
-  @OneToMany(() => Endereco, (endereco) => endereco.cidade)
-  public enderecos!: Promise<Relation<Endereco[]>>;
 }

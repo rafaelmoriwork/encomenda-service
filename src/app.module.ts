@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import EncomendasModule from './encomendas/encomendas.module.js';
@@ -13,8 +13,8 @@ import { databaseOptions } from './config/database.config.js';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(databaseOptions),
-    EncomendasModule, 
-    PessoasModule, 
+    EncomendasModule,
+    PessoasModule,
     EnderecosModule
   ],
   controllers: [],

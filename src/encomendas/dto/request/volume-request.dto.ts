@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsDecimal } from "class-validator";
+import { IsNotEmpty, IsDecimal, IsString, MaxLength } from "class-validator";
 
 export default class VolumeRequestDto {
 
@@ -22,4 +22,10 @@ export default class VolumeRequestDto {
     @IsNotEmpty()
     @IsDecimal({ decimal_digits: '1,2', force_decimal: true })
     public altura: number;
+
+    @ApiProperty({ example: 'Caixa', description: 'Descricação da encomenda' })
+    @IsString()
+    @IsNotEmpty()
+    @MaxLength(200)
+    public descricao!: string;
 }

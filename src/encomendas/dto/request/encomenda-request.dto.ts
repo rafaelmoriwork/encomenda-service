@@ -1,25 +1,27 @@
 import EnderecoRequestDto from "./endereco-request.dto.js";
 import VolumeRequestDto from "./volume-request.dto.js";
-import { IsNotEmpty, IsString, MaxLength, IsDefined, ValidateNested, IsArray, ArrayNotEmpty } from "class-validator";
+import { IsNotEmpty, IsString, MaxLength, IsDefined, ValidateNested, IsArray, ArrayNotEmpty, minLength, MinLength } from "class-validator";
 import { Type } from "class-transformer";
 import { ApiProperty } from "@nestjs/swagger";
 
 export default class EncomendaRequestDto {
 
-    @ApiProperty({ example: '33201309899', description: 'Documento do remetente' })
+    @ApiProperty({ example: '102962a0-1fd5-40b4-8357-3a1b76a0a216', description: 'Id do remetente' })
     @IsString()
     @IsNotEmpty()
-    @MaxLength(50)
-    public docRemetente!: string;
+    @MinLength(36)
+    @MaxLength(36)
+    public remetentePessoaId!: string;
 
-    @ApiProperty({ example: '44201309899', description: 'Documento do destinatário' })
+    @ApiProperty({ example: '113a73b1-20e6-41c5-9468-4b3c87c1a201', description: 'Id do destinatário' })
     @IsString()
-    @IsNotEmpty()
-    @MaxLength(50)
-    public docDestinatario!: string;
+    @MinLength(36)
+    @MaxLength(36)
+    public destinatarioPessoaId!: string;
 
     @ApiProperty({ example: 'Caixa', description: 'Descricação da encomenda' })
     @IsString()
+    @IsNotEmpty()
     @MaxLength(200)
     public descricao!: string;
 

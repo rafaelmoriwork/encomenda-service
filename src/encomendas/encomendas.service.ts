@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, UnprocessableEntityException } from '@nestjs/common';
 import EncomendaRequestDto from './dto/request/encomenda-request.dto.js';
 import { Repository } from 'typeorm';
-import { Documento } from '../pessoas/entities/documento.entity.js';
 import { Cidade } from '../enderecos/entities/cidade.entity.js';
 import { Encomenda } from './entities/encomenda.entity.js';
 import { EncomendaStatusId } from './enums/encomenda-status-id.enum.js';
@@ -15,8 +14,8 @@ import { Pessoa } from '../pessoas/entities/pessoa.entity.js';
 export default class EncomendasService {
 
   constructor(
-    @InjectRepository(Documento)
-    private readonly documentoRepository: Repository<Documento>,
+    @InjectRepository(Pessoa)
+    private readonly pessoaRepository: Repository<Pessoa>,
 
     @InjectRepository(Cidade)
     private readonly cidadeRepository: Repository<Cidade>,
@@ -78,25 +77,20 @@ export default class EncomendasService {
     cidade: Cidade;
   }> {
 
-    const remetenteDocumento = await this.documentoRepository.findOneBy({ numero: encomendaRequestDto.docRemetente });
-    if (!remetenteDocumento) {
-      throw new BadRequestException(`Documento do remetente não encontrado: ${encomendaRequestDto.docRemetente}`);
+    const remetente = await this.pessoaRepository.findOneBy({ id: encomendaRequestDto.remetentePessoaId });
+    if (!remetente) {
+      throw new BadRequestException(`Remetente não encontrado: ${encomendaRequestDto.remetentePessoaId}`);
     }
 
-    const destinatarioDocumento = await this.documentoRepository.findOneBy({ numero: encomendaRequestDto.docDestinatario });
-    if (!destinatarioDocumento) {
-      throw new BadRequestException(`Documento do destinatário não encontrado: ${encomendaRequestDto.docDestinatario}`);
+    const destinatario = await this.pessoaRepository.findOneBy({ id: encomendaRequestDto.destinatarioPessoaId });
+    if (!destinatario) {
+      throw new BadRequestException(`Destinatário não encontrado: ${encomendaRequestDto.destinatarioPessoaId}`);
     }
 
     const cidade = await this.cidadeRepository.findOneBy({ codigoIbge: encomendaRequestDto.enderecoEntrega.codigoIbgeCidade });
     if (!cidade) {
       throw new BadRequestException(`Cidade não encontrada: ${encomendaRequestDto.enderecoEntrega.codigoIbgeCidade}`);
     }
-
-    const [remetente, destinatario] = await Promise.all([
-      remetenteDocumento.pessoa,
-      destinatarioDocumento.pessoa,
-    ]);
 
     return { remetente, destinatario, cidade };
   }

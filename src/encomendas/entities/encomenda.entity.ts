@@ -15,24 +15,24 @@ export class Encomenda {
   @Generated('uuid')
   public id!: string;
 
-  @ManyToOne(() => EncomendaStatus, (status) => status.encomendas, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => EncomendaStatus, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'status_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_encomenda_encomenda_status_status_id' })
   public status!: Promise<Relation<EncomendaStatus>>;
 
-  @ManyToOne(() => Pessoa, (pessoa) => pessoa.encomendasEnviadas, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => Pessoa, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'remetente_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_encomenda_pessoa_remetente_id' })
   public remetente!: Promise<Relation<Pessoa>>;
 
-  @ManyToOne(() => Pessoa, (pessoa) => pessoa.encomendasRecebidas, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => Pessoa, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'destinatario_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_encomenda_pessoa_destinatario_id' })
   public destinatario!: Promise<Relation<Pessoa>>;
 
-  @ManyToOne(() => Endereco, (endereco) => endereco.encomendasEntrega, { nullable: false, onDelete: 'CASCADE', cascade: ['insert'] })
+  @ManyToOne(() => Endereco, { nullable: false, onDelete: 'CASCADE', cascade: ['insert'] })
   @JoinColumn({ name: 'endereco_entrega_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_encomenda_endereco_endereco_entrega_id' })
   public enderecoEntrega!: Promise<Relation<Endereco>>;
 
-  @Column({ type: 'varchar', length: 200, nullable: true })
-  public descricao!: string | null;
+  @Column({ type: 'varchar', length: 200 })
+  public descricao!: string;
 
   @Column({ name: 'data_inclusao', type: 'datetime', precision: 6 })
   public dataInclusao!: Date;
