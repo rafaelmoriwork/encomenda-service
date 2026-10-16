@@ -14,7 +14,7 @@ export default class EncomendasController {
 
   @Post()
   @ApiOperation({ summary: 'Registra uma nova encomenda' })
-  @ApiResponse({ status: 201, description: 'Encomenda registrada', type: EncomendaRequestDto })
+  @ApiResponse({ status: 201, description: 'Encomenda registrada' })
   @ApiResponse({ status: 400, description: 'Dados inválidos' })
   public async registrarEncomenda(@Body() encomendaRequestDto: EncomendaRequestDto): Promise<void> {
     await this.encomendasService.registrarEncomenda(encomendaRequestDto);

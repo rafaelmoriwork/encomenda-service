@@ -70,6 +70,10 @@ export default class EncomendasService {
     destinatario: Pessoa;
   }> {
 
+    if (encomendaRequestDto.remetentePessoaId == encomendaRequestDto.destinatarioPessoaId) {
+      throw new BadRequestException("Remetente e destinatário não podem ser a mesma pessoa.");
+    }
+
     const remetente = await this.pessoaRepository.findOneBy({ id: encomendaRequestDto.remetentePessoaId });
     if (!remetente) {
       throw new BadRequestException(`Remetente não encontrado: ${encomendaRequestDto.remetentePessoaId}`);

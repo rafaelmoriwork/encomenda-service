@@ -1,6 +1,6 @@
 import EnderecoRequestDto from "./endereco-request.dto.js";
 import VolumeRequestDto from "./volume-request.dto.js";
-import { IsNotEmpty, IsString, MaxLength, IsDefined, ValidateNested, IsArray, ArrayNotEmpty, minLength, MinLength } from "class-validator";
+import { IsNotEmpty, IsString, MaxLength, IsDefined, ValidateNested, IsArray, ArrayNotEmpty, MinLength } from "class-validator";
 import { Type } from "class-transformer";
 import { ApiProperty } from "@nestjs/swagger";
 
@@ -15,23 +15,24 @@ export default class EncomendaRequestDto {
 
     @ApiProperty({ example: '113a73b1-20e6-41c5-9468-4b3c87c1a201', description: 'Id do destinatário' })
     @IsString()
+    @IsNotEmpty()
     @MinLength(36)
     @MaxLength(36)
     public destinatarioPessoaId!: string;
 
-    @ApiProperty({ example: 'Eletrônicos', description: 'Descricação da encomenda' })
+    @ApiProperty({ example: 'Eletrônicos', description: 'Descrição da encomenda' })
     @IsString()
     @IsNotEmpty()
     @MaxLength(200)
     public descricao!: string;
 
-    @ApiProperty({ description: 'Endereço de entrega' })
+    @ApiProperty({ type: () => EnderecoRequestDto, description: 'Endereço de entrega' })
     @IsDefined()
     @ValidateNested()
     @Type(() => EnderecoRequestDto)
     public enderecoEntrega!: EnderecoRequestDto;
 
-    @ApiProperty({ description: 'volumes da encomenda' })
+    @ApiProperty({ type: () => [VolumeRequestDto], minItems: 1, description: 'Volumes da encomenda' })
     @ArrayNotEmpty()
     @IsArray()
     @ValidateNested({ each: true })
