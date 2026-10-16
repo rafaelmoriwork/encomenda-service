@@ -35,8 +35,9 @@ export class Encomenda {
   public descricao!: string;
 
   @Column({ name: 'data_inclusao', type: 'datetime', precision: 6 })
-  public dataInclusao!: Date;
+  public dataInclusao: Date = new Date();
 
   @OneToMany(() => Volume, (volume) => volume.encomenda, { cascade: ['insert'] })
   public volumes!: Promise<Relation<Volume[]>>;
+
 }

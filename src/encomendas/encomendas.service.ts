@@ -9,6 +9,7 @@ import { Endereco } from '../enderecos/entities/endereco.entity.js';
 import { Volume } from './entities/volume.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pessoa } from '../pessoas/entities/pessoa.entity.js';
+import EnderecosService from '../enderecos/enderecos.service.js';
 
 @Injectable()
 export default class EncomendasService {
@@ -17,20 +18,17 @@ export default class EncomendasService {
     @InjectRepository(Pessoa)
     private readonly pessoaRepository: Repository<Pessoa>,
 
-    @InjectRepository(Cidade)
-    private readonly cidadeRepository: Repository<Cidade>,
-
     @InjectRepository(Encomenda)
     private readonly encomendaRepository: Repository<Encomenda>,
 
     @InjectRepository(EncomendaStatus)
     private readonly statusRepository: Repository<EncomendaStatus>,
 
-    @InjectRepository(Endereco)
-    private readonly enderecoRepository: Repository<Endereco>,
 
     @InjectRepository(Volume)
     private readonly volumeRepository: Repository<Volume>,
+
+    private readonly enderecosService: EnderecosService,
   ) { }
 
   public async registrarEncomenda(encomendaRequestDto: EncomendaRequestDto): Promise<void> {
@@ -41,25 +39,21 @@ export default class EncomendasService {
 
   private async gerarEncomenda(encomendaRequestDto: EncomendaRequestDto): Promise<Encomenda> {
 
-    const { remetente, destinatario, cidade } = await this.buscarDependenciasRegistroEncomenda(encomendaRequestDto);
+    const { remetente, destinatario } = await this.buscarDependenciasRegistroEncomenda(encomendaRequestDto);
 
     const encomenda = this.encomendaRepository.create({
       descricao: encomendaRequestDto.descricao,
-      dataInclusao: new Date(),
     });
 
     const statusRecebida = this.statusRepository.create({
       id: EncomendaStatusId.RECEBIDA,
     });
 
-    const endereco = this.enderecoRepository.create({
-      ...encomendaRequestDto.enderecoEntrega,
-    });
+    const endereco = await this.enderecosService.gerarEnderecoEntrega(encomendaRequestDto.enderecoEntrega);
 
     encomenda.remetente = Promise.resolve(remetente);
     encomenda.destinatario = Promise.resolve(destinatario);
     encomenda.status = Promise.resolve(statusRecebida);
-    endereco.cidade = Promise.resolve(cidade);
     encomenda.enderecoEntrega = Promise.resolve(endereco);
 
     encomenda.volumes = Promise.resolve(
@@ -74,7 +68,6 @@ export default class EncomendasService {
   private async buscarDependenciasRegistroEncomenda(encomendaRequestDto: EncomendaRequestDto): Promise<{
     remetente: Pessoa;
     destinatario: Pessoa;
-    cidade: Cidade;
   }> {
 
     const remetente = await this.pessoaRepository.findOneBy({ id: encomendaRequestDto.remetentePessoaId });
@@ -87,12 +80,7 @@ export default class EncomendasService {
       throw new BadRequestException(`Destinatário não encontrado: ${encomendaRequestDto.destinatarioPessoaId}`);
     }
 
-    const cidade = await this.cidadeRepository.findOneBy({ id: encomendaRequestDto.enderecoEntrega.cidadeId });
-    if (!cidade) {
-      throw new BadRequestException(`Cidade não encontrada: ${encomendaRequestDto.enderecoEntrega.cidadeId}`);
-    }
-
-    return { remetente, destinatario, cidade };
+    return { remetente, destinatario };
   }
 
 }
