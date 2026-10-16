@@ -3,22 +3,22 @@ import { IsNotEmpty, IsDecimal, IsString, MaxLength, IsNumber } from "class-vali
 
 export default class VolumeRequestDto {
 
-    @ApiProperty({ example: '10.212', description: 'Peso bruto' })
+    @ApiProperty({ example: '10.212', description: 'Peso bruto em kg' })
     @IsNotEmpty()
     @IsNumber({maxDecimalPlaces: 3})
     public pesoBruto: number;
 
-    @ApiProperty({ example: '55.322', description: 'Comprimento' })
+    @ApiProperty({ example: '55.322', description: 'Comprimento em cm' })
     @IsNotEmpty()
     @IsNumber({maxDecimalPlaces: 3})
     public comprimento: number;
 
-    @ApiProperty({ example: '44.322', description: 'Largura' })
+    @ApiProperty({ example: '44.322', description: 'Largura em cm' })
     @IsNotEmpty()
     @IsNumber({maxDecimalPlaces: 3})
     public largura: number;
 
-    @ApiProperty({ example: '11.433', description: 'Altura' })
+    @ApiProperty({ example: '11.433', description: 'Altura em cm' })
     @IsNotEmpty()
     @IsNumber({maxDecimalPlaces: 3})
     public altura: number;
