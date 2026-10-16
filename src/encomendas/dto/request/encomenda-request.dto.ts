@@ -19,7 +19,7 @@ export default class EncomendaRequestDto {
     @MaxLength(36)
     public destinatarioPessoaId!: string;
 
-    @ApiProperty({ example: 'Caixa', description: 'Descricação da encomenda' })
+    @ApiProperty({ example: 'Eletrônicos', description: 'Descricação da encomenda' })
     @IsString()
     @IsNotEmpty()
     @MaxLength(200)

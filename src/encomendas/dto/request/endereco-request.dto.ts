@@ -3,12 +3,12 @@ import { IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
 
 export default class EnderecoRequestDto {
 
-    @ApiProperty({ example: '3507605', description: 'Código IBGE da cidade de entrega' })
+    @ApiProperty({ example: '5106f95c-a4ca-4265-96d5-8fa459410f90', description: 'Id da cidade' })
     @IsString()
     @IsNotEmpty()
-    @MaxLength(7)
-    @MinLength(7)
-    public codigoIbgeCidade: string;
+    @MinLength(36)
+    @MaxLength(36)
+    public cidadeId: string;
 
     @ApiProperty({ example: 'Sargento Antônio Esteves', description: 'Logradouro' })
     @IsString()

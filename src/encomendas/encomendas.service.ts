@@ -87,9 +87,9 @@ export default class EncomendasService {
       throw new BadRequestException(`Destinatário não encontrado: ${encomendaRequestDto.destinatarioPessoaId}`);
     }
 
-    const cidade = await this.cidadeRepository.findOneBy({ codigoIbge: encomendaRequestDto.enderecoEntrega.codigoIbgeCidade });
+    const cidade = await this.cidadeRepository.findOneBy({ id: encomendaRequestDto.enderecoEntrega.cidadeId });
     if (!cidade) {
-      throw new BadRequestException(`Cidade não encontrada: ${encomendaRequestDto.enderecoEntrega.codigoIbgeCidade}`);
+      throw new BadRequestException(`Cidade não encontrada: ${encomendaRequestDto.enderecoEntrega.cidadeId}`);
     }
 
     return { remetente, destinatario, cidade };

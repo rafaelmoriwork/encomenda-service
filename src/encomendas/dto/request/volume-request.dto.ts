@@ -1,26 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsDecimal, IsString, MaxLength } from "class-validator";
+import { IsNotEmpty, IsDecimal, IsString, MaxLength, IsNumber } from "class-validator";
 
 export default class VolumeRequestDto {
 
-    @ApiProperty({ example: '10.2', description: 'Peso bruto' })
+    @ApiProperty({ example: '10.212', description: 'Peso bruto' })
     @IsNotEmpty()
-    @IsDecimal({ decimal_digits: '1,2', force_decimal: true })
+    @IsNumber({maxDecimalPlaces: 3})
     public pesoBruto: number;
 
-    @ApiProperty({ example: '55.33', description: 'Comprimento' })
+    @ApiProperty({ example: '55.322', description: 'Comprimento' })
     @IsNotEmpty()
-    @IsDecimal({ decimal_digits: '1,2', force_decimal: true })
+    @IsNumber({maxDecimalPlaces: 3})
     public comprimento: number;
 
-    @ApiProperty({ example: '44.30', description: 'Largura' })
+    @ApiProperty({ example: '44.322', description: 'Largura' })
     @IsNotEmpty()
-    @IsDecimal({ decimal_digits: '1,2', force_decimal: true })
+    @IsNumber({maxDecimalPlaces: 3})
     public largura: number;
 
-    @ApiProperty({ example: '11.40', description: 'Altura' })
+    @ApiProperty({ example: '11.433', description: 'Altura' })
     @IsNotEmpty()
-    @IsDecimal({ decimal_digits: '1,2', force_decimal: true })
+    @IsNumber({maxDecimalPlaces: 3})
     public altura: number;
 
     @ApiProperty({ example: 'Caixa', description: 'Descricação da encomenda' })
