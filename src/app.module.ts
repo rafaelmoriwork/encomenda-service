@@ -15,9 +15,9 @@ import { databaseOptions } from './config/database.config.js';
     TypeOrmModule.forRoot(databaseOptions),
     EncomendasModule,
     PessoasModule,
-    EnderecosModule
+    EnderecosModule,
   ],
   controllers: [],
   providers: [],
 })
-export default class AppModule { }
+export default class AppModule {}

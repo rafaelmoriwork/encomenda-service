@@ -1,4 +1,12 @@
-import { Column, Entity, Generated, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Generated,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import type { Relation } from 'typeorm';
 import { Cidade } from './cidade.entity.js';
 
@@ -10,7 +18,11 @@ export class Endereco {
   public id!: string;
 
   @ManyToOne(() => Cidade, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'cidade_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_endereco_cidade_cidade_id' })
+  @JoinColumn({
+    name: 'cidade_id',
+    referencedColumnName: 'id',
+    foreignKeyConstraintName: 'FK_endereco_cidade_cidade_id',
+  })
   public cidade!: Promise<Relation<Cidade>>;
 
   @Column({ type: 'varchar', length: 100 })

@@ -1,4 +1,12 @@
-import { Column, Entity, Generated, Index, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Generated,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import type { Relation } from 'typeorm';
 import { Encomenda } from '../../encomendas/entities/encomenda.entity.js';
 
@@ -9,8 +17,15 @@ export class Volume {
   @Generated('uuid')
   public id!: string;
 
-  @ManyToOne(() => Encomenda, (encomenda) => encomenda.volumes, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'encomenda_id', referencedColumnName: 'id', foreignKeyConstraintName: 'FK_volume_encomenda_encomenda_id' })
+  @ManyToOne(() => Encomenda, (encomenda) => encomenda.volumes, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({
+    name: 'encomenda_id',
+    referencedColumnName: 'id',
+    foreignKeyConstraintName: 'FK_volume_encomenda_encomenda_id',
+  })
   public encomenda!: Promise<Relation<Encomenda>>;
 
   @Column({ type: 'decimal', precision: 10, scale: 3 })
@@ -27,5 +42,4 @@ export class Volume {
 
   @Column({ type: 'varchar', length: 200 })
   public descricao!: string;
-
 }

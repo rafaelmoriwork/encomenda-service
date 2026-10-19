@@ -6,10 +6,6 @@ import { Pessoa } from './entities/pessoa.entity.js';
   controllers: [],
   providers: [],
   exports: [TypeOrmModule],
-  imports: [
-    TypeOrmModule.forFeature([
-      Pessoa,
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([Pessoa])],
 })
-export default class PessoasModule { }
+export default class PessoasModule {}

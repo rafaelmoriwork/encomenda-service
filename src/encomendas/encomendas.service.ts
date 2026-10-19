@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import EncomendaRequestDto from './dto/request/encomenda-request.dto.js';
 import { Repository } from 'typeorm';
 import { Cidade } from '../enderecos/entities/cidade.entity.js';
@@ -13,7 +17,6 @@ import EnderecosService from '../enderecos/enderecos.service.js';
 
 @Injectable()
 export default class EncomendasService {
-
   constructor(
     @InjectRepository(Pessoa)
     private readonly pessoaRepository: Repository<Pessoa>,
@@ -24,22 +27,24 @@ export default class EncomendasService {
     @InjectRepository(EncomendaStatus)
     private readonly statusRepository: Repository<EncomendaStatus>,
 
-
     @InjectRepository(Volume)
     private readonly volumeRepository: Repository<Volume>,
 
     private readonly enderecosService: EnderecosService,
-  ) { }
+  ) {}
 
-  public async registrarEncomenda(encomendaRequestDto: EncomendaRequestDto): Promise<void> {
-
+  public async registrarEncomenda(
+    encomendaRequestDto: EncomendaRequestDto,
+  ): Promise<void> {
     const encomenda = await this.gerarEncomenda(encomendaRequestDto);
     await this.encomendaRepository.save(encomenda);
   }
 
-  private async gerarEncomenda(encomendaRequestDto: EncomendaRequestDto): Promise<Encomenda> {
-
-    const { remetente, destinatario } = await this.buscarDependenciasRegistroEncomenda(encomendaRequestDto);
+  private async gerarEncomenda(
+    encomendaRequestDto: EncomendaRequestDto,
+  ): Promise<Encomenda> {
+    const { remetente, destinatario } =
+      await this.buscarDependenciasRegistroEncomenda(encomendaRequestDto);
 
     const encomenda = this.encomendaRepository.create({
       descricao: encomendaRequestDto.descricao,
@@ -49,7 +54,9 @@ export default class EncomendasService {
       id: EncomendaStatusId.RECEBIDA,
     });
 
-    const endereco = await this.enderecosService.gerarEnderecoEntrega(encomendaRequestDto.enderecoEntrega);
+    const endereco = await this.enderecosService.gerarEnderecoEntrega(
+      encomendaRequestDto.enderecoEntrega,
+    );
 
     encomenda.remetente = Promise.resolve(remetente);
     encomenda.destinatario = Promise.resolve(destinatario);
@@ -57,7 +64,7 @@ export default class EncomendasService {
     encomenda.enderecoEntrega = Promise.resolve(endereco);
 
     encomenda.volumes = Promise.resolve(
-      encomendaRequestDto.volumes.map(volume =>
+      encomendaRequestDto.volumes.map((volume) =>
         this.volumeRepository.create(volume),
       ),
     );
@@ -65,26 +72,39 @@ export default class EncomendasService {
     return encomenda;
   }
 
-  private async buscarDependenciasRegistroEncomenda(encomendaRequestDto: EncomendaRequestDto): Promise<{
+  private async buscarDependenciasRegistroEncomenda(
+    encomendaRequestDto: EncomendaRequestDto,
+  ): Promise<{
     remetente: Pessoa;
     destinatario: Pessoa;
   }> {
-
-    if (encomendaRequestDto.remetentePessoaId == encomendaRequestDto.destinatarioPessoaId) {
-      throw new BadRequestException("Remetente e destinatário não podem ser a mesma pessoa.");
+    if (
+      encomendaRequestDto.remetentePessoaId ==
+      encomendaRequestDto.destinatarioPessoaId
+    ) {
+      throw new BadRequestException(
+        'Remetente e destinatário não podem ser a mesma pessoa.',
+      );
     }
 
-    const remetente = await this.pessoaRepository.findOneBy({ id: encomendaRequestDto.remetentePessoaId });
+    const remetente = await this.pessoaRepository.findOneBy({
+      id: encomendaRequestDto.remetentePessoaId,
+    });
     if (!remetente) {
-      throw new BadRequestException(`Remetente não encontrado: ${encomendaRequestDto.remetentePessoaId}`);
+      throw new BadRequestException(
+        `Remetente não encontrado: ${encomendaRequestDto.remetentePessoaId}`,
+      );
     }
 
-    const destinatario = await this.pessoaRepository.findOneBy({ id: encomendaRequestDto.destinatarioPessoaId });
+    const destinatario = await this.pessoaRepository.findOneBy({
+      id: encomendaRequestDto.destinatarioPessoaId,
+    });
     if (!destinatario) {
-      throw new BadRequestException(`Destinatário não encontrado: ${encomendaRequestDto.destinatarioPessoaId}`);
+      throw new BadRequestException(
+        `Destinatário não encontrado: ${encomendaRequestDto.destinatarioPessoaId}`,
+      );
     }
 
     return { remetente, destinatario };
   }
-
 }

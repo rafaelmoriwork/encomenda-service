@@ -5642,7 +5642,6 @@ export class InserirCidades1791839242135 implements MigrationInterface {
         ('26f1b307-39bf-407d-bd63-cba326bc9e4b', 'Vila Propício', '5222302', 'ddcbfdfe-830b-461a-b476-fccbecb0c284'),
         ('6be2d2f3-4332-4f4b-abb0-11c76b14bf70', 'Brasília', '5300108', '3c6595ca-ff8e-4bc5-8f7d-b6e40e80186b')
     `);
-
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
@@ -11300,6 +11299,5 @@ export class InserirCidades1791839242135 implements MigrationInterface {
         '6be2d2f3-4332-4f4b-abb0-11c76b14bf70'
       )
     `);
-
   }
 }

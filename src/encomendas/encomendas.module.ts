@@ -13,13 +13,9 @@ import PessoasModule from '../pessoas/pessoas.module.js';
   providers: [EncomendasService],
   exports: [TypeOrmModule],
   imports: [
-    TypeOrmModule.forFeature([
-      EncomendaStatus,
-      Encomenda,
-      Volume
-    ]),
+    TypeOrmModule.forFeature([EncomendaStatus, Encomenda, Volume]),
     PessoasModule,
     EnderecosModule,
   ],
 })
-export default class EncomendasModule { }
+export default class EncomendasModule {}

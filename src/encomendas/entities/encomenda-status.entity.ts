@@ -1,4 +1,11 @@
-import { Column, Entity, Generated, Index, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Generated,
+  Index,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity({ name: 'encomenda_status' })
 @Index('IX_encomenda_status_descricao', ['descricao'], { unique: true })

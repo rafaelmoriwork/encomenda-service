@@ -1,4 +1,11 @@
-import { Column, Entity, Generated, Index, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Generated,
+  Index,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import type { Relation } from 'typeorm';
 import { Cidade } from './cidade.entity.js';
 

@@ -10,12 +10,6 @@ import { EnderecosRepository } from './repositories/enderecos.repository.js';
   controllers: [],
   providers: [EnderecosService, EnderecosRepository],
   exports: [TypeOrmModule, EnderecosService],
-  imports: [
-    TypeOrmModule.forFeature([
-      Cidade,
-      Endereco,
-      Estado
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([Cidade, Endereco, Estado])],
 })
-export default class EnderecosModule { }
+export default class EnderecosModule {}

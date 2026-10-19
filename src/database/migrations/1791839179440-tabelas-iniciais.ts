@@ -1,11 +1,8 @@
-
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class TabelasIniciais1791839179440 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE encomenda_status (
                 id CHAR(36) NOT NULL,
                 descricao VARCHAR(100) NOT NULL,
@@ -14,7 +11,7 @@ export class TabelasIniciais1791839179440 implements MigrationInterface {
             ) ENGINE=InnoDB
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE estado (
                 id CHAR(36) NOT NULL,
                 codigo_ibge VARCHAR(7) NOT NULL,
@@ -27,7 +24,7 @@ export class TabelasIniciais1791839179440 implements MigrationInterface {
             ) ENGINE=InnoDB
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE cidade (
                 id CHAR(36) NOT NULL,
                 nome VARCHAR(100) NOT NULL,
@@ -43,7 +40,7 @@ export class TabelasIniciais1791839179440 implements MigrationInterface {
             ) ENGINE=InnoDB
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE endereco (
                 id CHAR(36) NOT NULL,
                 cidade_id CHAR(36) NOT NULL,
@@ -60,7 +57,7 @@ export class TabelasIniciais1791839179440 implements MigrationInterface {
             ) ENGINE=InnoDB
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE pessoa (
                 id CHAR(36) NOT NULL,
                 nome VARCHAR(150) NOT NULL,
@@ -68,7 +65,7 @@ export class TabelasIniciais1791839179440 implements MigrationInterface {
             ) ENGINE=InnoDB
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE encomenda (
                 id CHAR(36) NOT NULL,
                 status_id CHAR(36) NOT NULL,
@@ -101,7 +98,7 @@ export class TabelasIniciais1791839179440 implements MigrationInterface {
             ) ENGINE=InnoDB
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE volume (
                 id CHAR(36) NOT NULL,
                 encomenda_id CHAR(36) NOT NULL,
@@ -118,16 +115,15 @@ export class TabelasIniciais1791839179440 implements MigrationInterface {
                     ON DELETE CASCADE
             ) ENGINE=InnoDB
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-
-        await queryRunner.query('DROP TABLE IF EXISTS volume');
-        await queryRunner.query('DROP TABLE IF EXISTS encomenda');
-        await queryRunner.query('DROP TABLE IF EXISTS encomenda_status');
-        await queryRunner.query('DROP TABLE IF EXISTS pessoa');
-        await queryRunner.query('DROP TABLE IF EXISTS endereco');
-        await queryRunner.query('DROP TABLE IF EXISTS cidade');
-        await queryRunner.query('DROP TABLE IF EXISTS estado');
-    }
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query('DROP TABLE IF EXISTS volume');
+    await queryRunner.query('DROP TABLE IF EXISTS encomenda');
+    await queryRunner.query('DROP TABLE IF EXISTS encomenda_status');
+    await queryRunner.query('DROP TABLE IF EXISTS pessoa');
+    await queryRunner.query('DROP TABLE IF EXISTS endereco');
+    await queryRunner.query('DROP TABLE IF EXISTS cidade');
+    await queryRunner.query('DROP TABLE IF EXISTS estado');
+  }
 }

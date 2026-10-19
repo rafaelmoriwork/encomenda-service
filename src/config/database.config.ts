@@ -12,13 +12,9 @@ export const databaseOptions: DataSourceOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
 
-  entities: [
-    join(import.meta.dirname, '../**/*.entity{.ts,.js}'),
-  ],
+  entities: [join(import.meta.dirname, '../**/*.entity{.ts,.js}')],
 
-  migrations: [
-    join(import.meta.dirname, '../database/migrations/*{.ts,.js}'),
-  ],
+  migrations: [join(import.meta.dirname, '../database/migrations/*{.ts,.js}')],
 
   synchronize: false,
   migrationsRun: false,
