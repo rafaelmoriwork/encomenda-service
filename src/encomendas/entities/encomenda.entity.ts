@@ -30,7 +30,7 @@ export class Encomenda {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_encomenda_encomenda_status_status_id',
   })
-  public status!: Promise<Relation<EncomendaStatus>>;
+  public status?: Relation<EncomendaStatus>;
 
   @ManyToOne(() => Pessoa, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({
@@ -38,7 +38,7 @@ export class Encomenda {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_encomenda_pessoa_remetente_id',
   })
-  public remetente!: Promise<Relation<Pessoa>>;
+  public remetente?: Relation<Pessoa>;
 
   @ManyToOne(() => Pessoa, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({
@@ -46,7 +46,7 @@ export class Encomenda {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_encomenda_pessoa_destinatario_id',
   })
-  public destinatario!: Promise<Relation<Pessoa>>;
+  public destinatario?: Relation<Pessoa>;
 
   @ManyToOne(() => Endereco, {
     nullable: false,
@@ -58,7 +58,7 @@ export class Encomenda {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_encomenda_endereco_endereco_entrega_id',
   })
-  public enderecoEntrega!: Promise<Relation<Endereco>>;
+  public enderecoEntrega?: Relation<Endereco>;
 
   @Column({ type: 'varchar', length: 200 })
   public descricao!: string;
@@ -69,5 +69,5 @@ export class Encomenda {
   @OneToMany(() => Volume, (volume) => volume.encomenda, {
     cascade: ['insert'],
   })
-  public volumes!: Promise<Relation<Volume[]>>;
+  public volumes?: Relation<Volume[]>;
 }

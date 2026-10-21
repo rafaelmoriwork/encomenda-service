@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import EncomendasController from './encomendas.controller.js';
-import EncomendasService from './encomendas.service.js';
+import EncomendasController from './controllers/encomendas.controller.js';
+import EncomendasService from './services/encomendas.service.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EncomendaStatus } from './entities/encomenda-status.entity.js';
 import { Encomenda } from './entities/encomenda.entity.js';

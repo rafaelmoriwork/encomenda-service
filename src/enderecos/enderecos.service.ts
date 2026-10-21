@@ -40,10 +40,12 @@ export default class EnderecosService {
     }
 
     endereco = this.enderecosRepository.create({
-      ...enderecoRequestDto,
+      logradouro: enderecoRequestDto.logradouro,
+      bairro: enderecoRequestDto.bairro,
+      numero: enderecoRequestDto.numero,
+      cep: enderecoRequestDto.cep,
+      cidade: cidade,
     });
-
-    endereco.cidade = Promise.resolve(cidade);
 
     return endereco;
   }

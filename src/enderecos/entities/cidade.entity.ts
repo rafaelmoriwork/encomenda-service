@@ -5,7 +5,6 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
 import type { Relation } from 'typeorm';
@@ -34,5 +33,5 @@ export class Cidade {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_cidade_estado_estado_id',
   })
-  public estado!: Promise<Relation<Estado>>;
+  public estado?: Relation<Estado>;
 }

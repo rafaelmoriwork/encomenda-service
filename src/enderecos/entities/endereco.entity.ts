@@ -23,7 +23,7 @@ export class Endereco {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_endereco_cidade_cidade_id',
   })
-  public cidade!: Promise<Relation<Cidade>>;
+  public cidade?: Relation<Cidade>;
 
   @Column({ type: 'varchar', length: 100 })
   public logradouro!: string;
