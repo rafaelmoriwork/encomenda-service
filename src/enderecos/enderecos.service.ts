@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Endereco } from './entities/endereco.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import EnderecoRequestDto from '../encomendas/dto/request/endereco-request.dto.js';
 import { Cidade } from './entities/cidade.entity.js';
 import { EnderecosRepository } from './repositories/enderecos.repository.js';
@@ -34,7 +34,7 @@ export default class EnderecosService {
       id: enderecoRequestDto.cidadeId,
     });
     if (!cidade) {
-      throw new BadRequestException(
+      throw new NotFoundException(
         `Cidade não encontrada: ${enderecoRequestDto.cidadeId}`,
       );
     }

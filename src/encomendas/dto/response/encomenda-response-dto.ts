@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Expose, plainToInstance, Transform, Type } from 'class-transformer';
+import { Expose, plainToInstance, Type } from 'class-transformer';
 import EnderecoEntregaResponseDto from './endereco-entrega-response.dto.js';
 import PessoaResponseDto from './pessoa-response.dto.js';
 import VolumeResponseDto from './volume-response.dto.js';

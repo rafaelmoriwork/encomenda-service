@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pessoa } from '../entities/pessoa.entity.js';
 import { Repository } from 'typeorm';
@@ -15,7 +15,7 @@ export default class PessoasService {
       id: id,
     });
     if (!pessoa) {
-      throw new BadRequestException(`Pessoa não encontrada: ${id}`);
+      throw new NotFoundException(`Pessoa não encontrada: ${id}`);
     }
 
     return pessoa;

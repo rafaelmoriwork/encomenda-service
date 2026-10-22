@@ -25,7 +25,7 @@ export default class EncomendasController {
   @Post()
   @ApiOperation({ summary: 'Registra uma nova encomenda' })
   @ApiResponse({ status: 201, description: 'Encomenda registrada' })
-  @ApiResponse({ status: 400, description: 'Dados inválidos' })
+  @ApiResponse({ status: 422, description: 'Dados inválidos' })
   public async registrarEncomenda(
     @Body() encomendaRequestDto: EncomendaRequestDto,
   ): Promise<void> {
@@ -43,6 +43,10 @@ export default class EncomendasController {
     description: 'Resultado da busca',
     type: ConsultaEncomendasResponseDto,
   })
+  @ApiResponse({
+    status: 404,
+    description: 'Status para filtro não encontrada',
+  })
   public async consultarEncomendas(
     @Query() consultaEncomendasRequestDto: ConsultaEncomendasRequestDto,
   ) {
@@ -58,7 +62,7 @@ export default class EncomendasController {
       'Permitir localizar e consultar uma encomenda para acompanhamento operacional',
   })
   @ApiResponse({ status: 200, description: 'Resultado da busca' })
-  @ApiResponse({ status: 400, description: 'Encomenda não encontrada' })
+  @ApiResponse({ status: 404, description: 'Encomenda não encontrada' })
   @ApiParam({
     name: 'id',
     description: 'ID da encomenda',

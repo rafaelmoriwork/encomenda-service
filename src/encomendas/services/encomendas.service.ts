@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import EncomendaRequestDto from '../dto/request/encomenda-request.dto.js';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { Encomenda } from '../entities/encomenda.entity.js';
@@ -73,7 +77,7 @@ export default class EncomendasService {
       encomendaRequestDto.remetentePessoaId ==
       encomendaRequestDto.destinatarioPessoaId
     ) {
-      throw new BadRequestException(
+      throw new UnprocessableEntityException(
         'Remetente e destinatário não podem ser a mesma pessoa.',
       );
     }
@@ -128,7 +132,7 @@ export default class EncomendasService {
     });
 
     if (!statusConsulta) {
-      throw new BadRequestException(`Status não encontrado para o ID: ${id}`);
+      throw new NotFoundException(`Status não encontrado para o ID: ${id}`);
     }
 
     return statusConsulta;
@@ -151,9 +155,7 @@ export default class EncomendasService {
     });
 
     if (!encomenda) {
-      throw new BadRequestException(
-        `Encomenda não encontrada para o ID: ${id}`,
-      );
+      throw new NotFoundException(`Encomenda não encontrada para o ID: ${id}`);
     }
 
     return EncomendaResponseDto.from(encomenda);
