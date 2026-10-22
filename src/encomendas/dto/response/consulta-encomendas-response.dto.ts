@@ -7,6 +7,7 @@ export default class ConsultaEncomendasResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Listagem de encomendas',
+    type: () => [EncomendaResponseDto],
   })
   @Type(() => EncomendaResponseDto)
   public encomendas: EncomendaResponseDto[] = new Array<EncomendaResponseDto>();

@@ -54,6 +54,7 @@ export default class EncomendaResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Volumes',
+    type: () => [VolumeResponseDto],
   })
   @Type(() => VolumeResponseDto)
   public volumes: VolumeResponseDto[] = new Array<VolumeResponseDto>();
@@ -64,10 +65,6 @@ export default class EncomendaResponseDto {
       encomenda,
       { excludeExtraneousValues: true },
     );
-
-    if (encomenda.status) {
-      encomendaResponseDto.status = encomenda.status?.descricao;
-    }
 
     if (encomenda.status) {
       encomendaResponseDto.status = encomenda.status?.descricao;

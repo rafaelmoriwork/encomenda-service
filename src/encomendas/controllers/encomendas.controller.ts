@@ -38,7 +38,11 @@ export default class EncomendasController {
     summary:
       'Permitir localizar e consultar encomendas para acompanhamento operacional',
   })
-  @ApiResponse({ status: 200, description: 'Resultado da busca' })
+  @ApiResponse({
+    status: 200,
+    description: 'Resultado da busca',
+    type: ConsultaEncomendasResponseDto,
+  })
   public async consultarEncomendas(
     @Query() consultaEncomendasRequestDto: ConsultaEncomendasRequestDto,
   ) {
