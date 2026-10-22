@@ -12,6 +12,7 @@ import EnderecosService from '../../enderecos/enderecos.service.js';
 import ConsultaEncomendasResponseDto from '../dto/response/consulta-encomendas-response.dto.js';
 import ConsultaEncomendasRequestDto from '../dto/request/consulta-encomendas-request.dto.js';
 import PessoasService from '../../pessoas/services/pessoas.service.js';
+import EncomendaResponseDto from '../dto/response/encomenda-response-dto.js';
 
 @Injectable()
 export default class EncomendasService {
@@ -131,5 +132,30 @@ export default class EncomendasService {
     }
 
     return statusConsulta;
+  }
+
+  public async buscarEncomendaPorId(id: string): Promise<EncomendaResponseDto> {
+    const encomenda = await this.encomendaRepository.findOne({
+      where: { id: id },
+      relations: {
+        status: true,
+        remetente: true,
+        destinatario: true,
+        enderecoEntrega: {
+          cidade: {
+            estado: true,
+          },
+        },
+        volumes: true,
+      },
+    });
+
+    if (!encomenda) {
+      throw new BadRequestException(
+        `Encomenda não encontrada para o ID: ${id}`,
+      );
+    }
+
+    return EncomendaResponseDto.from(encomenda);
   }
 }
