@@ -26,7 +26,7 @@ export class Volume {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_volume_encomenda_encomenda_id',
   })
-  public encomenda?: Relation<Encomenda>;
+  public encomenda!: Relation<Encomenda>;
 
   @Column({ type: 'decimal', precision: 10, scale: 3 })
   public comprimento!: number;

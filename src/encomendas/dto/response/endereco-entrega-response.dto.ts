@@ -39,17 +39,15 @@ export default class EnderecoEntregaResponseDto {
   })
   public numero: string;
 
-  public static from(endereco?: Endereco): EnderecoEntregaResponseDto {
+  public static from(endereco: Endereco): EnderecoEntregaResponseDto {
     const enderecoEntregaResponseDto = plainToInstance(
       EnderecoEntregaResponseDto,
       endereco,
       { excludeExtraneousValues: true },
     );
 
-    if (endereco) {
-      enderecoEntregaResponseDto.cidade = endereco.cidade?.nome;
-      enderecoEntregaResponseDto.uf = endereco.cidade?.estado?.uf;
-    }
+    enderecoEntregaResponseDto.cidade = endereco.cidade?.nome;
+    enderecoEntregaResponseDto.uf = endereco.cidade?.estado?.uf;
 
     return enderecoEntregaResponseDto;
   }

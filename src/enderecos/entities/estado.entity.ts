@@ -28,5 +28,5 @@ export class Estado {
   public uf!: string;
 
   @OneToMany(() => Cidade, (cidade) => cidade.estado)
-  public cidades?: Relation<Cidade[]>;
+  public cidades!: Relation<Cidade[]>;
 }

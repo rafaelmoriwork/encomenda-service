@@ -33,5 +33,5 @@ export class Cidade {
     referencedColumnName: 'id',
     foreignKeyConstraintName: 'FK_cidade_estado_estado_id',
   })
-  public estado?: Relation<Estado>;
+  public estado!: Relation<Estado>;
 }

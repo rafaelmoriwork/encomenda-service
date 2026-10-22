@@ -66,9 +66,7 @@ export default class EncomendaResponseDto {
       { excludeExtraneousValues: true },
     );
 
-    if (encomenda.status) {
-      encomendaResponseDto.status = encomenda.status?.descricao;
-    }
+    encomendaResponseDto.status = encomenda.status.descricao;
 
     encomendaResponseDto.remetente = PessoaResponseDto.from(
       encomenda.remetente,
@@ -80,11 +78,9 @@ export default class EncomendaResponseDto {
       encomenda.enderecoEntrega,
     );
 
-    if (encomenda.volumes) {
-      encomendaResponseDto.volumes = encomenda.volumes?.map((volume) =>
-        VolumeResponseDto.from(volume),
-      );
-    }
+    encomendaResponseDto.volumes = encomenda.volumes?.map((volume) =>
+      VolumeResponseDto.from(volume),
+    );
 
     return encomendaResponseDto;
   }
