@@ -107,23 +107,31 @@ export default class EncomendasService {
       );
     }
 
-    const encomendas = await this.encomendaRepository.find({
-      where: whereFilters,
-      order: { dataInclusao: 'DESC' },
-      relations: {
-        status: true,
-        remetente: true,
-        destinatario: true,
-        enderecoEntrega: {
-          cidade: {
-            estado: true,
+    const [encomendas, totalRegistros] =
+      await this.encomendaRepository.findAndCount({
+        where: whereFilters,
+        order: { dataInclusao: 'DESC' },
+        skip: consultaEncomendasRequestDto.skip,
+        take: consultaEncomendasRequestDto.itensPorPagina,
+        relations: {
+          status: true,
+          remetente: true,
+          destinatario: true,
+          enderecoEntrega: {
+            cidade: {
+              estado: true,
+            },
           },
+          volumes: true,
         },
-        volumes: true,
-      },
-    });
+      });
 
-    return ConsultaEncomendasResponseDto.from(encomendas);
+    return ConsultaEncomendasResponseDto.from(
+      encomendas,
+      totalRegistros,
+      consultaEncomendasRequestDto.paginaAtual,
+      consultaEncomendasRequestDto.itensPorPagina,
+    );
   }
 
   private async buscarStatusEncomendaPorIdStatus(id: string) {
