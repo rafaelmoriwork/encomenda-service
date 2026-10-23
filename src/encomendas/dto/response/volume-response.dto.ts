@@ -6,6 +6,7 @@ export default class VolumeResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Comprimento',
+    example: 1.3,
   })
   @Transform(({ value }) => Number(value))
   public comprimento!: number;
@@ -13,6 +14,7 @@ export default class VolumeResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Largura',
+    example: 2.2,
   })
   @Transform(({ value }) => Number(value))
   public largura!: number;
@@ -20,6 +22,7 @@ export default class VolumeResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Altura',
+    example: 4.4,
   })
   @Transform(({ value }) => Number(value))
   public altura!: number;
@@ -27,6 +30,7 @@ export default class VolumeResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Peso Bruto',
+    example: 4.8,
   })
   @Transform(({ value }) => Number(value))
   public pesoBruto!: number;

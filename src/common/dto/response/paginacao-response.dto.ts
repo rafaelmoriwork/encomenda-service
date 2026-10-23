@@ -6,6 +6,7 @@ export default class PaginacaoResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Total de registros',
+    example: 17,
   })
   @Transform(({ value }) => Number(value))
   public totalRegistros: number;
@@ -13,6 +14,7 @@ export default class PaginacaoResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Total de páginas',
+    example: 6,
   })
   @Transform(({ value }) => Number(value))
   public totalPaginas: number;
@@ -20,13 +22,15 @@ export default class PaginacaoResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Total de itens por página',
+    example: 3,
   })
   @Transform(({ value }) => Number(value))
   public itensPorPagina: number;
 
   @Expose()
   @ApiProperty({
-    description: 'Largura',
+    description: 'Página atual',
+    example: 1,
   })
   @Transform(({ value }) => Number(value))
   public paginaAtual: number;
@@ -34,6 +38,7 @@ export default class PaginacaoResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Página anterior',
+    example: null,
   })
   @Transform(({ value }) => (value == null ? null : Number(value)))
   public paginaAnterior: number | null;
@@ -41,6 +46,7 @@ export default class PaginacaoResponseDto {
   @Expose()
   @ApiProperty({
     description: 'Proxima página',
+    example: 2,
   })
   @Transform(({ value }) => (value == null ? null : Number(value)))
   public proximaPagina: number | null;
