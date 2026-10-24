@@ -32,7 +32,7 @@ export default class EncomendasService {
 
     private readonly enderecosService: EnderecosService,
     private readonly pessoasService: PessoasService,
-  ) { }
+  ) {}
 
   public async registrarEncomenda(
     encomendaRequestDto: EncomendaRequestDto,
@@ -127,7 +127,7 @@ export default class EncomendasService {
       });
 
     if (totalRegistros == 0) {
-      throw new NotFoundException("Encomendas não encontradas");
+      throw new NotFoundException('Encomendas não encontradas');
     }
 
     return ConsultaEncomendasResponseDto.from(

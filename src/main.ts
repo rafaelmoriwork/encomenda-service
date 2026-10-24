@@ -1,25 +1,23 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import AppModule from './app.module.js';
-import { validationPipeConfig } from './config/validation-pipe.config.js';
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
-import { SwaggerModule } from '@nestjs/swagger';
-import { swaggerConfig } from './config/swagger.config.js';
-import HttpExceptionFilter from './common/exceptions/http-exception.filter.js';
-import { classSerializerConfig } from './config/class-serializer.config.js';
+import { GlobalValidationPipe } from './common/pipes/global-validation.pipe.js';
+import { SwaggerSetup } from './common/swagger/swagger.setup.js';
+import { GlobalSerializerInterceptor } from './common/interceptors/global-serializer.interceptor.js';
 
 async function bootstrap() {
   // Config validators
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe(validationPipeConfig));
-  app.useGlobalFilters(new HttpExceptionFilter());
+
+  //Config global dos pipes
+  app.useGlobalPipes(new GlobalValidationPipe());
+
+  //Config global para o serializador
   app.useGlobalInterceptors(
-    new ClassSerializerInterceptor(app.get(Reflector), classSerializerConfig),
+    new GlobalSerializerInterceptor(app.get(Reflector)),
   );
 
   //Doc swagger config
-  const documentFactory = () =>
-    SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('docs', app, documentFactory);
+  new SwaggerSetup().setup(app);
 
   await app.listen(process.env.PORT ?? 3000);
 }

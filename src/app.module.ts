@@ -1,18 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
 import EncomendasModule from './encomendas/encomendas.module.js';
 import PessoasModule from './pessoas/pessoas.module.js';
 import EnderecosModule from './enderecos/enderecos.module.js';
-import { databaseOptions } from './config/database.config.js';
+import DatabaseModule from './database/database.module.js';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot(databaseOptions),
+    DatabaseModule,
     EncomendasModule,
     PessoasModule,
     EnderecosModule,
